@@ -4,14 +4,18 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="scripts.js"></script>
+ 	<!-- <script src="scripts.js"></script> -->
 	<link rel="stylesheet" href="normalize.css">
 	<link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-	<header class="header">
+	<header class="header" id="header">
 		<h1>Rock, Paper, Scissors!</h1>
+	 	<div class="labels">
+			<div class="you">You</div>
+			<div class="comp">Computer</div>
+		</div>
 	</header>
 	<div class="content">
 		<div class="player">
@@ -21,9 +25,9 @@
 				<div class='scissors-pic'></div>
 			</div>
 			<div class="buttons">
-				<button id="rock" onclick="rock()">Rock</button>
-				<button id="paper" onclick="paper()">Paper</button>
-				<button id="scissors" onclick="scissors()">Scissors</button>
+				<button id="rock" onclick="winner(rock(), computerSelect());">Rock</button>
+				<button id="paper" onclick="winner(paper(), computerSelect());">Paper</button>
+				<button id="scissors" onclick="winner(scissors(), computerSelect());">Scissors</button>
 			</div>
 		</div>
 		<div class="computer">
@@ -35,5 +39,120 @@
 		</div>
 	</div>
 	
+	<div class="footer" id="footer">	
+		<div class="score-box" id="score-box">
+			<div class="player-wins" id="player-wins">
+				<h2>Wins</h2>
+				<p id="pWins">0</p>
+			</div>
+			<div class="computer-wins">
+				<h2>Losses</h2>
+				<p id="cWins">0</p>
+			</div>
+			<div class="ties">
+				<h2>Ties</h2>
+				<p id="ties">0</p>
+			</div>
+		</div>
 </body>
+
+<script>
+$(document).ready(function () {
+	console.log("ready");
+	alert("This is a game of rock, paper scissors. You are on the left with the computer playing on the right. Choose your option by clicking one of the three buttons below; your scores will be tallied underneith the displayed pictures.")
+});
+
+var player_selection
+
+function rock() {
+	player_selection = "rock";
+	$(".player .rock-pic").show();
+	$(".player .paper-pic").hide();
+	$(".player .scissors-pic").hide();
+	console.log("player: " + player_selection);	
+	return player_selection;
+	//computerSelect();
+};
+
+function paper() {
+	player_selection = "paper";
+	$(".player .rock-pic").hide();
+	$(".player .paper-pic").show();
+	$(".player .scissors-pic").hide();
+	console.log("player: " + player_selection);	
+	return player_selection;
+
+	//computerSelect();
+};
+
+function scissors() {
+	player_selection = "scissors";
+	$(".player .rock-pic").hide()
+	$(".player .paper-pic").hide()
+	$(".player .scissors-pic").show()
+	console.log("player: " + player_selection);	
+	return player_selection;
+	//computerSelect();
+};
+
+function computerSelect() {
+	var number = Math.floor((Math.random() * 3));
+	var computerSelection;
+	if (number === 0) {
+		computerSelection = "rock";
+		$(".computer .rock-pic").show();
+		$(".computer .paper-pic").hide();
+		$(".computer .scissors-pic").hide();
+	} else if (number === 1) {
+		computerSelection = "paper";
+		$(".computer .rock-pic").hide();
+		$(".computer .paper-pic").show();
+		$(".computer .scissors-pic").hide();
+	} else {
+		computerSelection = "scissors";
+		$(".computer .rock-pic").hide();
+		$(".computer .paper-pic").hide();
+		$(".computer .scissors-pic").show();
+	}
+	console.log("computer: " + computerSelection);
+	return computerSelection;
+};
+
+function winner(player, computer) {
+	if (player === "rock") {
+		if (computer === "rock") {
+			scoreUpdate('ties');
+		} else if (computer === "paper") {
+			scoreUpdate('cWins');
+		} else {
+			scoreUpdate('pWins');
+		}
+	} else if (player ==="paper") {
+		if (computer === "rock") {
+			scoreUpdate('pWins');
+		} else if (computer === "paper") {
+			scoreUpdate('ties');
+		} else {
+			scoreUpdate('cWins');
+		}
+	} else {
+		if (computer === "rock") {
+			scoreUpdate('cWins');
+		} else if (computer === "paper") {
+			scoreUpdate('pWins');
+		} else {
+			scoreUpdate('ties');
+		}
+	}
+}
+
+function scoreUpdate(input) {
+	var query = '#' + String(input);
+	var value = parseInt($(query).html());
+	$(query).text(++value);
+	var message = "Updated score for " + String(input) + ": " + String($(query).html())
+	console.log(message);;
+};
+
+</script>
 </html>

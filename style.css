@@ -2,18 +2,40 @@
 
 body {
 	color:blue;
-}
-
-div {
-	border:1px solid red;
+	background-color:black;
 }
 
 .header {
 	text-align: center;
 }
 
+.labels {
+	width:100%;
+	height: 35px;
+	position:relative;
+}
+
+.labels > .you {
+	position:absolute;
+	left: 0px;
+	width:50%;
+	height: 100%;
+	font-size:30px;
+}
+
+.labels > .comp {
+	position:absolute;
+	left: 50%;
+	width:50%;
+	height: 100%;
+	font-size: 30px;
+}
+
 button {
 	background-color:red;
+	font-size: 25px;
+	font-weight:bold;
+	color:DarkBlue;
 }
 
 .content {
@@ -52,6 +74,12 @@ button {
 	display:none;
 }
 
+.computer > .computer-pics > .rock-pic, .paper-pic, .scissors-pic {
+	height:100%;
+	width:100%;
+	display:none;
+}
+
 .rock-pic {
 	background-image: url("images/rock.jpg");
 	background-size: 100% 100%;
@@ -71,8 +99,45 @@ button {
 }
 
 .buttons {
+	padding-top:10px;
 	height:10%;
 	text-align: center;
 }
 
 
+.footer {
+	height:100px;
+	width:100%;
+}
+
+.score-box {
+	height:100%;
+	width:30%;
+	margin:0 auto;
+	position:relative;
+}
+
+.player-wins, .computer-wins, .ties {
+	position:absolute;
+	height:100%;
+	width:33%;
+	text-align:center;
+}
+
+.player-wins {
+	left:0px;
+}
+
+.computer-wins {
+	left:33%;
+}
+
+.ties {
+	left:67%;
+}
+
+#score-box p {
+	font-size:20px;
+	font-weight:bold;
+	font-style:italic;
+}
